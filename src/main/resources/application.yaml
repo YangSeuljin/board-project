@@ -50,4 +50,5 @@ spring:
   sql:
     init:
       mode: always
+test.database.replace: none
 
