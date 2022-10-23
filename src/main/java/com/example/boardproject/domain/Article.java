@@ -3,16 +3,10 @@ package com.example.boardproject.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,7 +21,7 @@ import java.util.Set;
 
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Article {
+public class Article extends AuditingFields {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -45,21 +39,21 @@ public class Article {
 
     @ToString.Exclude
     @OrderBy("id")
-    @OneToMany(mappedBy = "article",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime createdAt; //생성일시
-    @CreatedBy
-    @Column(nullable = false, length = 100)
-    private String createdBy; //생성자
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime modifiedAt; //수정일시
-    @LastModifiedBy
-    @Column(nullable = false, length = 100)
-    private String modifiedBy; //수정자
+//    @CreatedDate
+//    @Column(nullable = false)
+//    private LocalDateTime createdAt; //생성일시
+//    @CreatedBy
+//    @Column(nullable = false, length = 100)
+//    private String createdBy; //생성자
+//    @LastModifiedDate
+//    @Column(nullable = false)
+//    private LocalDateTime modifiedAt; //수정일시
+//    @LastModifiedBy
+//    @Column(nullable = false, length = 100)
+//    private String modifiedBy; //수정자
 
     protected Article() {
     }
@@ -78,7 +72,7 @@ public class Article {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Article article)) return false;
-        return id !=null && id.equals(article.id);
+        return id != null && id.equals(article.id);
     }
 
     @Override
